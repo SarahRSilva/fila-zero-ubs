@@ -92,7 +92,12 @@ def _afirmou(resposta: str) -> bool:
     return not _negou(resposta) and bool(re.search(r"\b(sim|s|tenho|tem|estou|isso|aham|uhum|claro)\b", resposta))
 
 
+FEBRE_ALTA_INFORMADA = r"\b(39|4[0-2])( ?graus| ?°|\b)"
+
+
 def _pergunta_amarelo(texto: str) -> str | None:
+    if re.search(r"\bfebre", texto) and re.search(FEBRE_ALTA_INFORMADA, texto):  # a temperatura já foi dita
+        return "Você notou manchas na pele ou sangramento na gengiva?"
     return next((q for chave, q in PERGUNTAS_AMARELO.items() if re.search(r"\b" + chave, texto)), None)
 
 

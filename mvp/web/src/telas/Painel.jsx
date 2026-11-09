@@ -166,7 +166,9 @@ export default function Painel() {
                 </table>
               </div>
             ) : (
-              <p className="vazio">Ninguém avisou ainda para esse dia.</p>
+              <p className="vazio">
+                {fila.length ? `Ninguém com triagem ${NOME_COR[filtro].toLowerCase()} nesse dia.` : "Ninguém avisou ainda para esse dia."}
+              </p>
             )}
           </section>
 
