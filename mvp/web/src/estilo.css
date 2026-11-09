@@ -67,6 +67,14 @@ h1, h2, p { margin: 0; }
 }
 .campo input:focus { outline: 2px solid var(--acento); outline-offset: 1px; border-color: var(--acento); }
 
+.escolha-ubs { display: flex; align-items: center; gap: 8px; padding: 10px 16px 0; font-size: 13px; color: var(--tinta-3); }
+.escolha-ubs label { font-weight: 600; color: var(--tinta-2); white-space: nowrap; }
+.escolha-ubs select {
+  flex: 1; min-width: 0; height: 40px; padding: 0 10px; border: 1.5px solid var(--borda-forte); border-radius: 10px;
+  background: var(--cartao); font-size: 15px; color: var(--tinta);
+}
+.escolha-ubs select:focus { outline: 2px solid var(--acento); outline-offset: 1px; border-color: var(--acento); }
+
 .botao {
   height: 56px; border-radius: 14px; border: 0; background: var(--acento); color: #fff;
   font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center;
