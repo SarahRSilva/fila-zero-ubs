@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "mvp/api", "data"]
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]

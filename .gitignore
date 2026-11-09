@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+.ipynb_checkpoints/
+node_modules/
+dist/
+.DS_Store
+*.db
+bigdata/lake/silver/*
+bigdata/lake/gold/*
+bigdata/lake/rejeitados/*
+!bigdata/lake/**/.gitkeep

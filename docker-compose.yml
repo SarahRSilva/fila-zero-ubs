@@ -1,0 +1,118 @@
+# Os valores depois de ":-" servem só para desenvolvimento local.
+# Em qualquer ambiente público, defina todos no .env (veja .env.example).
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-filazero}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-filazero}
+      POSTGRES_DB: ${POSTGRES_DB:-filazero}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-filazero} -d ${POSTGRES_DB:-filazero}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./iot/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  api:
+    build:
+      context: .
+      dockerfile: mvp/api/Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://filazero:filazero@db:5432/filazero}
+      JWT_SECRET: ${JWT_SECRET:-dev-apenas-troque-este-segredo-0123456789}
+      JWT_EXPIRA_MIN: ${JWT_EXPIRA_MIN:-60}
+      PSEUDONIMO_SAL: ${PSEUDONIMO_SAL:-dev-apenas}
+      SEED_SENHA: ${SEED_SENHA:-filazero-demo}
+      CORS_ORIGENS: ${CORS_ORIGENS:-http://localhost:5173}
+      MQTT_HOST: ${MQTT_HOST:-mqtt}
+      MQTT_PORT: ${MQTT_PORT:-1883}
+      MQTT_TOPICO: ${MQTT_TOPICO:-filazero/ubs/+/sala}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      LLM_MODELO: ${LLM_MODELO:-claude-opus-5-5}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      mqtt:
+        condition: service_started
+
+  web:
+    build: ./mvp/web
+    environment:
+      # vazio = o front usa o mesmo endereço que o abriu, porta 8000 (funciona no celular pela rede Wi-Fi)
+      VITE_API_URL: ${VITE_API_URL:-}
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./mvp/web/src:/app/src
+    depends_on:
+      - api
+
+  # sensor simulado da sala de espera (sem placa). Sobe só com: docker compose --profile demo up
+  sensor:
+    build: ./iot
+    command: ["python", "mock_sensor.py", "--todas", "--intervalo", "5", "--acelerar", "10"]
+    environment:
+      MQTT_HOST: mqtt
+    depends_on:
+      - mqtt
+    profiles: ["demo"]
+
+  # assina o tópico do sensor e grava as leituras no bronze do lake
+  coletor:
+    build: ./iot
+    command: ["python", "coletor.py"]
+    environment:
+      MQTT_HOST: mqtt
+      LAKE_BRONZE: /lake/bronze
+    volumes:
+      - ./bigdata/lake:/lake
+    depends_on:
+      - mqtt
+
+  # roda uma vez: bronze -> silver -> gold, para o dashboard ter o que ler
+  pipeline:
+    build: ./bigdata
+    command: ["python", "pipeline.py", "--lake", "/lake"]
+    volumes:
+      - ./bigdata/lake:/lake
+
+  # roda uma vez: grava fato_previsao no gold (indicador previsto x real). O modelo da API não é alterado.
+  treino:
+    build:
+      context: .
+      dockerfile: mvp/api/Dockerfile
+    user: root
+    command: ["python", "ia/treinar.py"]
+    volumes:
+      - ./bigdata/lake:/app/bigdata/lake
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully
+
+  dashboard:
+    build: ./bigdata
+    environment:
+      LAKE_GOLD: /lake/gold
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./bigdata/lake:/lake:ro
+    depends_on:
+      treino:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
