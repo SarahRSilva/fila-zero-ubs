@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import time
 from contextlib import asynccontextmanager
 from datetime import date, datetime, timedelta, timezone
@@ -111,11 +112,14 @@ def cadastrar(entrada: CadastroEntrada, db: Session = Depends(get_db)):
 
 
 @app.post("/login", response_model=LoginSaida, tags=["acesso"])
-def login(entrada: LoginEntrada, request: Request, db: Session = Depends(get_db)):
-    chave = f"{request.client.host if request.client else '?'}:{entrada.email.lower()}"
-    if seguranca.login_bloqueado(chave):
-        raise HTTPException(status.HTTP_429_TOO_MANY_REQUESTS, "Muitas tentativas. Aguarde alguns minutos.",
-                            headers={"Retry-After": str(seguranca.JANELA_LOGIN_S)})
+def login(entrada: LoginEntrada, db: Session = Depends(get_db)):
+    # Por conta, não por IP: atrás do Docker ou de um proxy todos chegam com o mesmo endereço.
+    chave = entrada.email.lower()
+    if (espera := seguranca.espera_login(chave)) > 0:
+        segundos = math.ceil(espera)
+        raise HTTPException(status.HTTP_429_TOO_MANY_REQUESTS,
+                            f"Muitas tentativas seguidas. Tente de novo em {segundos} s.",
+                            headers={"Retry-After": str(segundos)})
     usuario = buscar_usuario(db, entrada.email)
     if not seguranca.senha_confere(entrada.senha, usuario.senha_hash if usuario else None):
         seguranca.registrar_falha_login(chave)

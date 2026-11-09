@@ -80,7 +80,7 @@ Documentação interativa em `/docs`. Para testar ali, chame `POST /login`, copi
 | `GET /health` | aberto | Situação do serviço |
 | `GET /ubs` | aberto | Lista de unidades |
 | `POST /cadastro` | aberto | Cria conta de cidadão e devolve o token |
-| `POST /login` | aberto | Devolve o token JWT, o perfil e a UBS; bloqueia por 5 min depois de 10 falhas (429) |
+| `POST /login` | aberto | Devolve o token JWT, o perfil e a UBS; depois de 3 falhas seguidas na mesma conta, cada tentativa espera 1 s, 2 s, 4 s… até 60 s (429 com `Retry-After`) |
 | `POST /atendimento` | token | Registra um atendimento; recusa dia fechado e, para o cidadão, data passada. Confirmar de novo no mesmo dia troca o turno |
 | `GET /atendimento` | token | Gestora vê só os da própria unidade; cidadão vê só os dele |
 | `GET /previsao?data=AAAA-MM-DD` | token | Procura prevista nos três turnos; aceita `ubs`, `temp_max` e `chuva_mm` |
