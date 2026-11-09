@@ -27,6 +27,8 @@ Com `docker compose --profile demo up --build` sobe também o `sensor`, um mock 
 
 Sem `.env`, o compose usa valores de desenvolvimento (senha de demonstração `filazero-demo`). Não use esses valores em ambiente público.
 
+Para publicar a API e o front no Render, com deploy automático pelo GitHub Actions, siga [docs/deploy.md](docs/deploy.md).
+
 ### Testar no celular
 
 Com tudo no ar no computador e o celular na mesma rede Wi-Fi:
