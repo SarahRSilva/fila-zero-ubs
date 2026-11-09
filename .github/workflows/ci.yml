@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  qualidade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check .
+      - name: Dataset sintético
+        run: python data/gerar_dataset.py
+      - name: Pipeline bronze -> silver -> gold
+        run: python bigdata/pipeline.py
+      - name: Treino do modelo (MAE no log)
+        run: python ia/treinar.py
+      - name: Testes
+        run: pytest -q
+      - name: Métricas da triagem e simulação antes/depois
+        run: python ia/avaliar_triagem.py && python ia/simular_ganho.py
+
+  build:
+    runs-on: ubuntu-latest
+    needs: qualidade
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build das imagens
+        run: docker compose build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Dispara o deploy da API no Render
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "::warning::Defina o secret RENDER_DEPLOY_HOOK_URL para ativar o deploy automático."
+            exit 0
+          fi
+          curl --fail --silent --show-error -X POST "$RENDER_DEPLOY_HOOK_URL"
