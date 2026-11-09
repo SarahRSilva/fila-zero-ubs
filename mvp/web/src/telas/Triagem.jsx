@@ -5,6 +5,16 @@ import { Cabecalho, Classificacao, IconeMarca } from "../componentes.jsx";
 
 const UBS_PADRAO = "UBS Jardim Esperanca";
 const CHAVE_TRIAGEM = "filazero.triagem";
+const CHAVE_UBS = "filazero.ubs";
+const nomeUbs = (ubs) => ubs.replace("Esperanca", "Esperança");
+
+function ubsGuardada() {
+  try {
+    return sessionStorage.getItem(CHAVE_UBS) || UBS_PADRAO;
+  } catch {
+    return UBS_PADRAO;
+  }
+}
 
 function Balao({ de, children }) {
   return (
@@ -27,7 +37,25 @@ export default function Triagem() {
   const [pergunta, setPergunta] = useState(null);
   const [resultado, setResultado] = useState(null);
   const [ocupado, setOcupado] = useState(false);
+  const [ubs, setUbs] = useState(ubsGuardada);
+  const [unidades, setUnidades] = useState([UBS_PADRAO]);
   const fim = useRef(null);
+
+  useEffect(() => {
+    api.ubs().then((lista) => {
+      setUnidades(lista);
+      if (!lista.includes(ubs)) setUbs(lista[0]);
+    }).catch(() => {});
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function escolherUbs(valor) {
+    setUbs(valor);
+    try {
+      sessionStorage.setItem(CHAVE_UBS, valor);
+    } catch {
+      // sem sessionStorage, a escolha vale só nesta tela
+    }
+  }
 
   useEffect(() => {
     fim.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,7 +73,7 @@ export default function Triagem() {
       }
       setPergunta(null);
       setResultado(r);
-      sessionStorage.setItem(CHAVE_TRIAGEM, JSON.stringify({ ...r, relato: relatoAtual, ubs: UBS_PADRAO }));
+      sessionStorage.setItem(CHAVE_TRIAGEM, JSON.stringify({ ...r, relato: relatoAtual, ubs }));
       setMensagens((m) => [...m, { de: "bot", resultado: r }]);
     } catch (err) {
       setMensagens((m) => [...m, { de: "bot", texto: `Não consegui classificar agora (${err.message}). Tente de novo.` }]);
@@ -71,7 +99,13 @@ export default function Triagem() {
 
   return (
     <main className="tela">
-      <Cabecalho titulo="Pré-triagem" sub={UBS_PADRAO.replace("Esperanca", "Esperança")} etiqueta="Passo 1 de 2" voltarPara="/" />
+      <Cabecalho titulo="Pré-triagem" sub={nomeUbs(ubs)} etiqueta="Passo 1 de 2" voltarPara="/" />
+      <div className="escolha-ubs">
+        <label htmlFor="ubs">Unidade</label>
+        <select id="ubs" value={ubs} onChange={(e) => escolherUbs(e.target.value)} disabled={ocupado || !!resultado}>
+          {unidades.map((u) => <option key={u} value={u}>{nomeUbs(u)}</option>)}
+        </select>
+      </div>
 
       <div className="chat" aria-live="polite">
         {mensagens.map((m, i) =>

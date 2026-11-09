@@ -94,7 +94,7 @@ Em dia sem expediente (fim de semana ou feriado) a previsão devolve `aberta: fa
 
 ## Front (React)
 
-Rotas: `/` login, `/cadastro` nova conta, `/triagem` chat de pré-triagem, `/turno` turno sugerido e confirmação, `/painel` painel da gestora (só perfil `gestora`). O token fica em `sessionStorage` e some ao fechar a aba. Protótipos das telas: canvas "Fila Zero UBS — Protótipos" no Claude.
+Rotas: `/` login, `/cadastro` nova conta, `/triagem` chat de pré-triagem, `/turno` turno sugerido e confirmação, `/painel` painel da gestora (só perfil `gestora`). O token fica em `sessionStorage` e some ao fechar a aba. O cidadão escolhe a unidade no topo do chat; a escolha vale para a previsão e o registro. Protótipos das telas: canvas "Fila Zero UBS — Protótipos" no Claude.
 
 A espera estimada por turno e a capacidade da equipe (4 / 3 / 2 profissionais, 18 atendimentos cada) são constantes em `mvp/web/src/lib/api.js` até existir cadastro de equipe na API.
 
