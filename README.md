@@ -174,7 +174,7 @@ fila-zero-ubs/
 │   └── web/                # React (Vite)
 ├── iot/                    # sensor_sala/ (ESP32, Wokwi), mock_sensor.py, coletor.py, Mosquitto
 ├── tests/
-└── docs/                   # PDF, prints, diagrama
+└── docs/                   # PDF, prints, diagrama, roteiro das entrevistas
 ```
 
 ## Uso de IA generativa
