@@ -1,0 +1,65 @@
+{
+  "modelo": "GradientBoosting",
+  "mae_validacao_por_candidato": {
+    "RandomForest": 5.69,
+    "GradientBoosting": 5.43
+  },
+  "periodo_treino": [
+    "2025-11-04",
+    "2026-09-30"
+  ],
+  "periodo_teste": [
+    "2026-10-01",
+    "2026-10-30"
+  ],
+  "linhas_treino": 1362,
+  "linhas_teste": 126,
+  "meta_pct_da_media": 15.0,
+  "teste": {
+    "mae_geral": 5.38,
+    "por_turno": {
+      "manha": {
+        "mae": 6.57,
+        "media": 54.2,
+        "pct_da_media": 12.1,
+        "meta_ok": true
+      },
+      "tarde": {
+        "mae": 5.55,
+        "media": 39.8,
+        "pct_da_media": 13.9,
+        "meta_ok": true
+      },
+      "noite": {
+        "mae": 4.01,
+        "media": 17.1,
+        "pct_da_media": 23.5,
+        "meta_ok": false
+      }
+    }
+  },
+  "linha_de_base_media_movel_7d": {
+    "mae_geral": 7.24,
+    "por_turno": {
+      "manha": {
+        "mae": 9.88,
+        "media": 54.2,
+        "pct_da_media": 18.2,
+        "meta_ok": false
+      },
+      "tarde": {
+        "mae": 7.83,
+        "media": 39.8,
+        "pct_da_media": 19.7,
+        "meta_ok": false
+      },
+      "noite": {
+        "mae": 3.99,
+        "media": 17.1,
+        "pct_da_media": 23.4,
+        "meta_ok": false
+      }
+    }
+  },
+  "dados": "sintéticos (data/gerar_dataset.py)"
+}

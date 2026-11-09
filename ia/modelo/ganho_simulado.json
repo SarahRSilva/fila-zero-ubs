@@ -1,0 +1,29 @@
+{
+  "dia_de_pico": "2026-04-06",
+  "ubs": "UBS Jardim Esperanca",
+  "pessoas": 100,
+  "rodadas": 500,
+  "atendimento_medio_min": 14.0,
+  "antes_fila_por_chegada": {
+    "espera_media_min": 67.9,
+    "atendidos": 99.8
+  },
+  "depois_por_adesao": {
+    "100%": {
+      "espera_media_min": 5.8,
+      "atendidos": 99.1,
+      "reducao_pct": 91.4
+    },
+    "70%": {
+      "espera_media_min": 16.7,
+      "atendidos": 99.4,
+      "reducao_pct": 75.4
+    },
+    "50%": {
+      "espera_media_min": 28.2,
+      "atendidos": 99.6,
+      "reducao_pct": 58.5
+    }
+  },
+  "dados": "simulação sobre dataset sintético; não é medição em UBS real"
+}

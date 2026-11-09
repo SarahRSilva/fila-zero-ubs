@@ -1,0 +1,118 @@
+{
+  "ajuste": {
+    "casos": 30,
+    "acertos": 30,
+    "acuracia": 1.0,
+    "vermelho_detectado": 10,
+    "vermelho_como_verde": 0,
+    "matriz_real_x_previsto": {
+      "vermelho": {
+        "vermelho": 10,
+        "amarelo": 0,
+        "verde": 0
+      },
+      "amarelo": {
+        "vermelho": 0,
+        "amarelo": 10,
+        "verde": 0
+      },
+      "verde": {
+        "vermelho": 0,
+        "amarelo": 0,
+        "verde": 10
+      }
+    },
+    "erros": []
+  },
+  "validacao": {
+    "casos": 30,
+    "acertos": 17,
+    "acuracia": 0.567,
+    "vermelho_detectado": 0,
+    "vermelho_como_verde": 1,
+    "matriz_real_x_previsto": {
+      "vermelho": {
+        "vermelho": 0,
+        "amarelo": 9,
+        "verde": 1
+      },
+      "amarelo": {
+        "vermelho": 0,
+        "amarelo": 10,
+        "verde": 0
+      },
+      "verde": {
+        "vermelho": 0,
+        "amarelo": 3,
+        "verde": 7
+      }
+    },
+    "erros": [
+      {
+        "relato": "meu marido está com o lado direito do rosto caído",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "minha avó ficou roxa e está ofegante demais",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "sinto uma pressão enorme no coração e o braço esquerdo dói",
+        "esperado": "vermelho",
+        "previsto": "verde"
+      },
+      {
+        "relato": "bati a cabeça e estou vendo tudo embaçado e vomitando",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "meu neném de 20 dias está com 38 de febre",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "tomei uma cartela inteira de remédio",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "não vejo mais sentido em continuar vivo",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "estou com a garganta fechando depois de comer camarão",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "meu filho não para de se debater e revirou os olhos",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "estou perdendo muito sangue depois do parto",
+        "esperado": "vermelho",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "quero orientação sobre método contraceptivo",
+        "esperado": "verde",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "declaração de comparecimento para o trabalho",
+        "esperado": "verde",
+        "previsto": "amarelo"
+      },
+      {
+        "relato": "teste do pezinho do meu bebê",
+        "esperado": "verde",
+        "previsto": "amarelo"
+      }
+    ]
+  }
+}
