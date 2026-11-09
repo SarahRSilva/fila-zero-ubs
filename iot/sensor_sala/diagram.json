@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "author": "Fila Zero UBS",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-hc-sr04", "id": "fora", "top": -120, "left": -220, "attrs": { "distance": "200" } },
+    { "type": "wokwi-hc-sr04", "id": "dentro", "top": -120, "left": 160, "attrs": { "distance": "200" } },
+    { "type": "wokwi-dht22", "id": "dht", "top": 120, "left": -200, "attrs": { "temperature": "27.5", "humidity": "60" } },
+    { "type": "wokwi-led", "id": "led", "top": 120, "left": 220, "attrs": { "color": "red" } },
+    { "type": "wokwi-resistor", "id": "r1", "top": 170, "left": 220, "attrs": { "value": "220" } },
+    { "type": "wokwi-pushbutton", "id": "botao", "top": 220, "left": 220, "attrs": { "color": "blue" } }
+  ],
+  "connections": [
+    [ "fora:VCC", "esp:5V", "red", [] ],
+    [ "fora:GND", "esp:GND.1", "black", [] ],
+    [ "fora:TRIG", "esp:19", "green", [] ],
+    [ "fora:ECHO", "esp:21", "orange", [] ],
+    [ "dentro:VCC", "esp:5V", "red", [] ],
+    [ "dentro:GND", "esp:GND.1", "black", [] ],
+    [ "dentro:TRIG", "esp:5", "green", [] ],
+    [ "dentro:ECHO", "esp:18", "orange", [] ],
+    [ "dht:VCC", "esp:3V3", "red", [] ],
+    [ "dht:GND", "esp:GND.2", "black", [] ],
+    [ "dht:SDA", "esp:4", "purple", [] ],
+    [ "esp:2", "r1:1", "red", [] ],
+    [ "r1:2", "led:A", "red", [] ],
+    [ "led:C", "esp:GND.2", "black", [] ],
+    [ "botao:1.l", "esp:15", "blue", [] ],
+    [ "botao:2.l", "esp:GND.2", "black", [] ]
+  ],
+  "dependencies": {}
+}
