@@ -29,24 +29,30 @@ def senha_confere(senha: str, senha_hash: str | None) -> bool:
     return confere and senha_hash is not None
 
 
-MAX_FALHAS_LOGIN, JANELA_LOGIN_S = 10, 300
-_falhas: dict[str, list[float]] = {}
+# Espera crescente por conta: as primeiras falhas são livres; depois cada nova tentativa
+# precisa esperar 1 s, 2 s, 4 s... até ESPERA_MAX_S. Força bruta fica inviável, e quem
+# errar de propósito a senha de outra pessoa a atrasa no máximo ESPERA_MAX_S, sem travar a conta.
+FALHAS_LIVRES, ESPERA_MAX_S, ESQUECER_APOS_S = 3, 60, 900
+_falhas: dict[str, tuple[int, float]] = {}  # chave -> (falhas seguidas, hora da última)
 
 
-def login_bloqueado(chave: str) -> bool:
-    limite = time.monotonic() - JANELA_LOGIN_S
-    recentes = [t for t in _falhas.get(chave, []) if t > limite]
-    if recentes:
-        _falhas[chave] = recentes
-    else:
+def espera_login(chave: str) -> float:
+    """Segundos que a chave ainda precisa esperar antes de tentar de novo (0 = pode tentar)."""
+    falhas, ultima = _falhas.get(chave, (0, 0.0))
+    agora = time.monotonic()
+    if falhas and agora - ultima > ESQUECER_APOS_S:
         _falhas.pop(chave, None)
-    return len(recentes) >= MAX_FALHAS_LOGIN
+        return 0.0
+    if falhas < FALHAS_LIVRES:
+        return 0.0
+    return max(0.0, ultima + min(2 ** (falhas - FALHAS_LIVRES), ESPERA_MAX_S) - agora)
 
 
 def registrar_falha_login(chave: str) -> None:
     if len(_falhas) > 10_000:  # teto de memória; a API roda em um processo só
         _falhas.clear()
-    _falhas.setdefault(chave, []).append(time.monotonic())
+    falhas, _ = _falhas.get(chave, (0, 0.0))
+    _falhas[chave] = (falhas + 1, time.monotonic())
 
 
 def limpar_falhas_login(chave: str) -> None:

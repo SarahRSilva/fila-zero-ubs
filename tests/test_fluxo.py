@@ -67,11 +67,43 @@ def test_nao_registra_em_dia_fechado_nem_em_data_passada(cliente, cidadao):
     assert cliente.post("/atendimento", json=corpo(data=ontem.isoformat()), headers=cidadao).status_code == 422
 
 
-def test_login_bloqueia_depois_de_muitas_falhas(cliente):
+class Relogio:
+    def __init__(self):
+        self.agora = 1000.0
+
+    def __call__(self):
+        return self.agora
+
+
+def test_login_espera_cresce_depois_de_falhas_seguidas(cliente, monkeypatch):
+    from app import seguranca
+    relogio = Relogio()
+    monkeypatch.setattr(seguranca.time, "monotonic", relogio)
     novo_cidadao(cliente, "alvo@teste.dev")
-    dados = {"email": "alvo@teste.dev", "senha": "errada"}
-    for _ in range(10):
-        assert cliente.post("/login", json=dados).status_code == 401
-    bloqueado = cliente.post("/login", json=dados)
-    assert bloqueado.status_code == 429 and "Retry-After" in bloqueado.headers
-    assert cliente.post("/login", json={**dados, "senha": "senha-boa-123"}).status_code == 429
+    errada = {"email": "alvo@teste.dev", "senha": "errada"}
+    certa = {"email": "alvo@teste.dev", "senha": "senha-boa-123"}
+
+    for _ in range(3):
+        assert cliente.post("/login", json=errada).status_code == 401
+    bloqueado = cliente.post("/login", json=certa)
+    assert bloqueado.status_code == 429 and bloqueado.headers["Retry-After"] == "1"
+    assert "1 s" in bloqueado.json()["detail"]
+
+    relogio.agora += 1.1
+    assert cliente.post("/login", json=errada).status_code == 401
+    assert cliente.post("/login", json=errada).headers["Retry-After"] == "2"  # a espera dobra
+
+    relogio.agora += 2.1
+    assert cliente.post("/login", json=certa).status_code == 200  # a dona da conta entra
+    assert cliente.post("/login", json=errada).status_code == 401  # e o contador zerou
+
+
+def test_espera_tem_teto_e_nao_trava_a_conta(cliente, monkeypatch):
+    from app import seguranca
+    relogio = Relogio()
+    monkeypatch.setattr(seguranca.time, "monotonic", relogio)
+    for _ in range(30):
+        seguranca.registrar_falha_login("teto@teste.dev")
+    assert seguranca.espera_login("teto@teste.dev") == seguranca.ESPERA_MAX_S
+    relogio.agora += seguranca.ESPERA_MAX_S + 0.1
+    assert seguranca.espera_login("teto@teste.dev") == 0
