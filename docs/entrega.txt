@@ -10,4 +10,4 @@ RM [PREENCHER] - [PREENCHER NOME]
 RM [PREENCHER] - [PREENCHER NOME]
 
 Vídeo pitch: [PREENCHER LINK PÚBLICO, TESTADO EM ABA ANÔNIMA]
-Repositório: [PREENCHER LINK DO GITHUB]
+Repositório: https://github.com/SarahRSilva/fila-zero-ubs
