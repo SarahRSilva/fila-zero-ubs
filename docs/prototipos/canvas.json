@@ -1,0 +1,21 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-07T17:20:00Z"},
+  "title": "Fila Zero UBS — Protótipos",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 390, "h": 844, "title": "1 · Login", "radius": 40, "is_interactive": true},
+    "Triagem.dc.html": {"x": 470, "y": 0, "w": 390, "h": 844, "title": "2 · Pré-triagem (chat)", "radius": 40, "is_interactive": true},
+    "Turno.dc.html": {"x": 940, "y": 0, "w": 390, "h": 844, "title": "3 · Turno sugerido", "radius": 40, "is_interactive": true},
+    "Gestora.dc.html": {"x": 1410, "y": 0, "w": 1280, "h": 844, "title": "4 · Painel da gestora", "expand": "fill", "is_interactive": true}
+  },
+  "order": ["Main.dc.html", "Triagem.dc.html", "Turno.dc.html", "Gestora.dc.html"],
+  "notes": {
+    "t1": {"x": 0, "y": -300, "text": "Cidadão (celular)", "kind": "title1", "maxW": 1330},
+    "t2": {"x": 1410, "y": -300, "text": "Gestora (web)", "kind": "title1", "maxW": 1280},
+    "n1": {"x": 0, "y": 960, "w": 420, "text": "Fluxo do cidadão: Login → chat de pré-triagem → turno sugerido. Clique nos botões em Play para navegar. Os números vêm do dataset sintético e da API (/previsao para 23/11).", "fill": "blue"},
+    "n2": {"x": 1410, "y": 960, "w": 420, "text": "Painel da gestora: previsão do dia seguinte por turno (GET /previsao), fila de hoje (GET /atendimento) e atalho para o dashboard Streamlit. Página fluida: no celular as colunas empilham.", "fill": "blue"}
+  },
+  "designSystems": []
+}

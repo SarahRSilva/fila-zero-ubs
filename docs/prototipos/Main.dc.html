@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fila Zero UBS — Entrar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#17211F;-webkit-font-smoothing:antialiased}
+a{color:#1F5FB0}a:hover{color:#174A8A}
+input::placeholder{color:#8A9290}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F7F4; display: flex; flex-direction: column; padding: 72px 24px 32px; gap: 0">
+  <div style="display: flex; align-items: center; gap: 12px">
+    <div style="width: 44px; height: 44px; border-radius: 12px; background: {{accent}}; display: flex; align-items: center; justify-content: center">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+    </div>
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 20px; font-weight: 700; letter-spacing: -0.3px">Fila Zero UBS</span>
+      <span style="font-size: 13px; color: #5B6563">Sua UBS sem fila de madrugada</span>
+    </div>
+  </div>
+
+  <h1 style="margin: 56px 0 8px; font-size: 30px; line-height: 36px; font-weight: 700; letter-spacing: -0.5px">Entrar</h1>
+  <p style="margin: 0 0 32px; font-size: 15px; line-height: 22px; color: #5B6563">Conte o que está sentindo e saiba o melhor horário para ir à UBS.</p>
+
+  <form style="display: flex; flex-direction: column; gap: 16px" onSubmit="{{ entrar }}">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="email" style="font-size: 13px; font-weight: 600; color: #3C4644">E-mail</label>
+      <input id="email" type="email" placeholder="cidadao@filazero.dev" autocomplete="username" style="height: 52px; padding: 0 16px; border: 1.5px solid #CFD5D2; border-radius: 12px; background: #FFFFFF; font: inherit; font-size: 16px; color: #17211F">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="senha" style="font-size: 13px; font-weight: 600; color: #3C4644">Senha</label>
+      <input id="senha" type="password" placeholder="••••••••" autocomplete="current-password" style="height: 52px; padding: 0 16px; border: 1.5px solid #CFD5D2; border-radius: 12px; background: #FFFFFF; font: inherit; font-size: 16px; color: #17211F">
+    </div>
+    <a href="Triagem.dc.html" style="margin-top: 8px; height: 56px; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center">Entrar</a>
+  </form>
+
+  <div style="margin-top: 20px; display: flex; justify-content: center; gap: 6px; font-size: 14px; color: #5B6563">
+    <span>Primeira vez?</span>
+    <a href="#" style="font-weight: 600">Criar conta</a>
+  </div>
+
+  <div style="flex: 1"></div>
+
+  <div style="display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E3E7E4">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D03B3B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    <p style="margin: 0; font-size: 13px; line-height: 19px; color: #3C4644"><strong>Emergência?</strong> Dor no peito, falta de ar forte ou sangramento que não para: ligue <strong>192 (SAMU)</strong> ou vá à UPA agora.</p>
+  </div>
+  <p style="margin: 16px 0 0; text-align: center; font-size: 11px; line-height: 16px; color: #6B7573">Este aplicativo não substitui a avaliação do enfermeiro nem marca consulta: ele sugere um turno.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#1F5FB0","options":["#1F5FB0","#0E7C66","#7A3FB0"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#1F5FB0',
+      entrar: (e) => { e.preventDefault(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

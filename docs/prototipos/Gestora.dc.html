@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fila Zero UBS — Painel da gestora</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#17211F;-webkit-font-smoothing:antialiased;background:#F6F7F4}
+a{color:#1F5FB0}a:hover{color:#174A8A}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid #E3E7E4;font-size:14px;white-space:nowrap}
+th{font-size:12px;font-weight:600;color:#5B6563;text-transform:uppercase;letter-spacing:.4px}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #F6F7F4">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 14px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E7E4">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: {{accent}}; display: flex; align-items: center; justify-content: center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+      </div>
+      <span style="font-size: 17px; font-weight: 700; letter-spacing: -0.3px">Fila Zero UBS</span>
+    </div>
+    <nav aria-label="Principal" style="display: flex; gap: 4px; margin-left: 24px">
+      <a href="#" aria-current="page" style="padding: 8px 14px; border-radius: 10px; background: #E6EEF9; color: #1F5FB0; font-size: 14px; font-weight: 600; text-decoration: none">Hoje</a>
+      <a href="https://localhost:8501" style="padding: 8px 14px; border-radius: 10px; color: #3C4644; font-size: 14px; font-weight: 600; text-decoration: none">Indicadores</a>
+      <a href="#" style="padding: 8px 14px; border-radius: 10px; color: #3C4644; font-size: 14px; font-weight: 600; text-decoration: none">Equipe</a>
+    </nav>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 12px">
+      <span style="font-size: 13px; color: #5B6563">UBS Jardim Esperança</span>
+      <div style="width: 36px; height: 36px; border-radius: 50%; background: #D9E3F5; color: #1F5FB0; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center" aria-label="Gestora Demo">GD</div>
+    </div>
+  </header>
+
+  <main style="flex: 1; width: 100%; max-width: 1216px; margin: 0 auto; box-sizing: border-box; padding: 28px 32px 48px; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.5px">Segunda, 23 de novembro</h1>
+        <p style="margin: 0; font-size: 14px; color: #5B6563">Previsão gerada às 18h de sexta · modelo GradientBoosting · erro médio 5,4 pessoas por turno</p>
+      </div>
+      <div style="display: flex; gap: 8px">
+        <button type="button" style="height: 40px; padding: 0 14px; border-radius: 10px; border: 1.5px solid #CFD5D2; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #17211F; cursor: pointer">Sexta, 20/11 (feriado)</button>
+        <button type="button" style="height: 40px; padding: 0 14px; border-radius: 10px; border: 0; background: {{accent}}; font: inherit; font-size: 14px; font-weight: 600; color: #FFFFFF; cursor: pointer">Amanhã, 23/11</button>
+      </div>
+    </div>
+
+    <section aria-label="Previsão por turno" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{ turnos }}" as="t" hint-placeholder-count="3">
+        <article style="background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <span style="font-size: 15px; font-weight: 700">{{ t.nome }}</span>
+            <span style="font-size: 12px; color: #5B6563">{{ t.horario }}</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 8px">
+            <span style="font-size: 44px; line-height: 44px; font-weight: 700; letter-spacing: -1px">{{ t.pessoas }}</span>
+            <span style="font-size: 14px; color: #5B6563">pessoas previstas</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5B6563">
+              <span>Capacidade da equipe</span>
+              <span style="font-weight: 600; color: #17211F">{{ t.capacidade }}</span>
+            </div>
+            <div style="height: 10px; border-radius: 999px; background: #E3E7E4; overflow: hidden">
+              <div style="height: 10px; width: {{ t.barra }}; border-radius: 999px; background: {{ t.cor }}"></div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: {{ t.fundo }}">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: {{ t.cor }}; flex-shrink: 0"></span>
+            <span style="font-size: 13px; font-weight: 600; color: {{ t.texto }}">{{ t.aviso }}</span>
+          </div>
+        </article>
+      </sc-for>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+      <section aria-label="Fila de amanhã" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px; overflow: hidden">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid #E3E7E4">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 style="margin: 0; font-size: 17px; font-weight: 700">Quem já avisou que vem</h2>
+            <span style="font-size: 13px; color: #5B6563">37 pessoas pré-triadas pelo chat · 61% em verde</span>
+          </div>
+          <div style="display: flex; gap: 6px">
+            <button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 0; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Todos</button>
+            <button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1.5px solid #CFD5D2; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600; color: #3C4644; cursor: pointer">Amarelo</button>
+            <button type="button" style="height: 34px; padding: 0 12px; border-radius: 999px; border: 1.5px solid #CFD5D2; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600; color: #3C4644; cursor: pointer">Verde</button>
+          </div>
+        </div>
+        <div style="overflow-x: auto">
+          <table>
+            <thead><tr><th>Turno</th><th>Cidadão</th><th>Motivo</th><th>Triagem</th><th>Chegada</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ fila }}" as="f" hint-placeholder-count="6">
+                <tr>
+                  <td>{{ f.turno }}</td>
+                  <td style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #3C4644">{{ f.hash }}</td>
+                  <td>{{ f.motivo }}</td>
+                  <td><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: {{ f.texto }}"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{ f.cor }}"></span>{{ f.cor_nome }}</span></td>
+                  <td style="color: #5B6563">{{ f.chegada }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section aria-label="Sala de espera agora" style="background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <h2 style="margin: 0; font-size: 15px; font-weight: 700">Sala de espera agora</h2>
+            <span style="font-size: 11px; font-weight: 600; color: #0E7C66; background: #E3F4EC; padding: 3px 8px; border-radius: 999px">sensor ativo</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 8px">
+            <span style="font-size: 40px; line-height: 40px; font-weight: 700; letter-spacing: -1px">18</span>
+            <span style="font-size: 14px; color: #5B6563">de 30 lugares</span>
+          </div>
+          <div style="height: 10px; border-radius: 999px; background: #E3E7E4; overflow: hidden"><div style="height: 10px; width: 60%; border-radius: 999px; background: #0E7C66"></div></div>
+          <p style="margin: 0; font-size: 12px; line-height: 18px; color: #5B6563">Última leitura há 40 s · 27,5 °C · a lotação passou de 90% em 3 dias esta semana, sempre entre 6h e 8h.</p>
+        </section>
+
+        <section aria-label="Ações sugeridas" style="background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 700">Sugestões para amanhã</h2>
+          <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+            <li style="display: flex; gap: 10px; font-size: 14px; line-height: 20px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #D03B3B; margin-top: 7px; flex-shrink: 0"></span>Manhã acima da capacidade: remanejar 1 profissional da noite ou abrir 12 vagas de rotina à tarde.</li>
+            <li style="display: flex; gap: 10px; font-size: 14px; line-height: 20px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #E0A000; margin-top: 7px; flex-shrink: 0"></span>Semana de chuva e pós-feriado: estoque de testes de dengue para 15 casos.</li>
+            <li style="display: flex; gap: 10px; font-size: 14px; line-height: 20px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #0E7C66; margin-top: 7px; flex-shrink: 0"></span>23 renovações de receita podem ir para a farmácia sem passar pelo médico.</li>
+          </ul>
+          <a href="https://localhost:8501" style="margin-top: 4px; height: 44px; border-radius: 12px; border: 1.5px solid #CFD5D2; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; text-decoration: none; color: #17211F">Abrir indicadores dos 12 meses</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#1F5FB0","options":["#1F5FB0","#0E7C66","#7A3FB0"]},"$preview":{"width":1280,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const cores = {
+      verde: { cor: '#0E7C66', texto: '#0A5A4A', cor_nome: 'Verde' },
+      amarelo: { cor: '#E0A000', texto: '#6B4E00', cor_nome: 'Amarelo' },
+      vermelho: { cor: '#D03B3B', texto: '#8F1F1F', cor_nome: 'Vermelho' }
+    };
+    const fila = [
+      { turno: 'Manhã', hash: 'd6b8edb3', motivo: 'Renovação de receita', c: 'verde', chegada: '7h10' },
+      { turno: 'Manhã', hash: '3faf93e0', motivo: 'Febre há 3 dias', c: 'amarelo', chegada: '7h30' },
+      { turno: 'Manhã', hash: '4c5c8929', motivo: 'Pré-natal', c: 'verde', chegada: '8h00' },
+      { turno: 'Tarde', hash: 'a91f20c7', motivo: 'Suspeita de dengue', c: 'amarelo', chegada: '13h00' },
+      { turno: 'Tarde', hash: '7e2d44b1', motivo: 'Vacina', c: 'verde', chegada: '14h20' },
+      { turno: 'Noite', hash: 'c08b5f3e', motivo: 'Curativo de rotina', c: 'verde', chegada: '18h30' }
+    ].map((f) => ({ ...f, ...cores[f.c] }));
+    return {
+      accent: this.props.accent ?? '#1F5FB0',
+      turnos: [
+        { nome: 'Manhã', horario: '7h às 12h', pessoas: 83, capacidade: '4 profissionais · 72', barra: '100%', cor: '#D03B3B', fundo: '#FBEAEA', texto: '#8F1F1F', aviso: '11 pessoas acima da capacidade' },
+        { nome: 'Tarde', horario: '13h às 17h', pessoas: 59, capacidade: '3 profissionais · 60', barra: '98%', cor: '#E0A000', fundo: '#FFF5D6', texto: '#6B4E00', aviso: 'No limite da equipe' },
+        { nome: 'Noite', horario: '18h às 21h', pessoas: 24, capacidade: '2 profissionais · 36', barra: '67%', cor: '#0E7C66', fundo: '#E3F4EC', texto: '#0A5A4A', aviso: 'Folga de 12 vagas' }
+      ],
+      fila
+    };
+  }
+}
+</script>
+</body>
+</html>

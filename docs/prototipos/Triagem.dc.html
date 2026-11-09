@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fila Zero UBS — Pré-triagem</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#17211F;-webkit-font-smoothing:antialiased}
+a{color:#1F5FB0}a:hover{color:#174A8A}
+input::placeholder{color:#8A9290}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F7F4; display: flex; flex-direction: column">
+  <header style="display: flex; align-items: center; gap: 12px; padding: 60px 16px 14px; background: #FFFFFF; border-bottom: 1px solid #E3E7E4">
+    <a href="Main.dc.html" aria-label="Voltar" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #17211F">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 16px; font-weight: 700">Pré-triagem</span>
+      <span style="font-size: 12px; color: #5B6563">UBS Jardim Esperança</span>
+    </div>
+    <span style="margin-left: auto; font-size: 11px; font-weight: 600; color: #1F5FB0; background: #E6EEF9; padding: 4px 10px; border-radius: 999px">Passo 1 de 2</span>
+  </header>
+
+  <div style="flex: 1; overflow: hidden; padding: 20px 16px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; gap: 10px; align-items: flex-end; max-width: 300px">
+      <div style="width: 32px; height: 32px; border-radius: 10px; background: {{accent}}; flex-shrink: 0; display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+      </div>
+      <p style="margin: 0; padding: 12px 14px; background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px 16px 16px 4px; font-size: 15px; line-height: 21px">Oi, Ana. Me conta o que você está sentindo ou do que precisa na UBS.</p>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end">
+      <p style="margin: 0; max-width: 280px; padding: 12px 14px; background: {{accent}}; color: #FFFFFF; border-radius: 16px 16px 4px 16px; font-size: 15px; line-height: 21px">Estou com febre há 3 dias e dor no corpo.</p>
+    </div>
+
+    <div style="display: flex; gap: 10px; align-items: flex-end; max-width: 320px">
+      <div style="width: 32px; height: 32px; border-radius: 10px; background: {{accent}}; flex-shrink: 0; display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+      </div>
+      <p style="margin: 0; padding: 12px 14px; background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px 16px 16px 4px; font-size: 15px; line-height: 21px">Entendi. A febre passa de 39 °C, ou você notou manchas na pele ou sangramento na gengiva?</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; padding-left: 42px">
+      <button type="button" onClick="{{ escolherNao }}" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{accent}}; background: {{fundoNao}}; color: {{corNao}}; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Não, nada disso</button>
+      <button type="button" onClick="{{ escolherSim }}" style="height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{accent}}; background: {{fundoSim}}; color: {{corSim}}; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Sim, alguma delas</button>
+    </div>
+
+    <sc-if value="{{ respondeu }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; gap: 10px; align-items: flex-end; max-width: 330px">
+        <div style="width: 32px; height: 32px; border-radius: 10px; background: {{accent}}; flex-shrink: 0; display: flex; align-items: center; justify-content: center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+        </div>
+        <div style="padding: 12px 14px; background: #FFFFFF; border: 1px solid #E3E7E4; border-radius: 16px 16px 16px 4px; display: flex; flex-direction: column; gap: 10px">
+          <p style="margin: 0; font-size: 15px; line-height: 21px">{{ resposta }}</p>
+          <div style="display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: {{classFundo}}">
+            <span style="width: 12px; height: 12px; border-radius: 50%; background: {{classCor}}; flex-shrink: 0"></span>
+            <span style="font-size: 13px; font-weight: 600; color: {{classTexto}}">{{ classRotulo }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ respondeu }}" hint-placeholder-val="{{ true }}">
+    <div style="padding: 12px 16px 0">
+      <a href="{{ proximo }}" style="height: 56px; border-radius: 14px; background: {{accent}}; color: #FFFFFF; text-decoration: none; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{ botao }}</a>
+    </div>
+  </sc-if>
+
+  <form style="display: flex; gap: 8px; padding: 12px 16px 28px" onSubmit="{{ enviar }}">
+    <label for="msg" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Mensagem</label>
+    <input id="msg" type="text" placeholder="Escreva aqui…" style="flex: 1; height: 50px; padding: 0 16px; border: 1.5px solid #CFD5D2; border-radius: 999px; background: #FFFFFF; font: inherit; font-size: 15px; min-width: 0">
+    <button type="submit" aria-label="Enviar" style="width: 50px; height: 50px; border-radius: 50%; border: 0; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#1F5FB0","options":["#1F5FB0","#0E7C66","#7A3FB0"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { escolha: null }; }
+  renderVals() {
+    const accent = this.props.accent ?? '#1F5FB0';
+    const e = this.state.escolha;
+    const vermelho = e === 'sim';
+    return {
+      accent,
+      respondeu: e !== null,
+      fundoNao: e === 'nao' ? accent : '#FFFFFF',
+      corNao: e === 'nao' ? '#FFFFFF' : accent,
+      fundoSim: e === 'sim' ? accent : '#FFFFFF',
+      corSim: e === 'sim' ? '#FFFFFF' : accent,
+      escolherNao: () => this.setState({ escolha: 'nao' }),
+      escolherSim: () => this.setState({ escolha: 'sim' }),
+      resposta: vermelho
+        ? 'Esses são sinais de alerta de dengue. Não espere a UBS: procure a UPA mais próxima agora ou ligue 192.'
+        : 'Febre há 3 dias precisa de atendimento hoje. Vou sugerir o turno com menos espera.',
+      classRotulo: vermelho ? 'Vermelho · procure a UPA agora' : 'Amarelo · atendimento hoje',
+      classCor: vermelho ? '#D03B3B' : '#E0A000',
+      classFundo: vermelho ? '#FBEAEA' : '#FFF5D6',
+      classTexto: vermelho ? '#8F1F1F' : '#6B4E00',
+      proximo: vermelho ? 'https://www.google.com/maps/search/UPA+mais+pr%C3%B3xima' : 'Turno.dc.html',
+      botao: vermelho ? 'Ver UPA mais próxima' : 'Ver turno sugerido',
+      enviar: (ev) => { ev.preventDefault(); }
+    };
+  }
+}
+</script>
+</body>
+</html>
