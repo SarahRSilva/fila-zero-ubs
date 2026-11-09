@@ -32,7 +32,7 @@ export function Cabecalho({ titulo, sub, etiqueta, voltarPara }) {
 
 export const ROTULO_COR = {
   verde: "Verde · rotina, pode agendar",
-  amarelo: "Amarelo · atendimento hoje",
+  amarelo: "Amarelo · atendimento o quanto antes",
   vermelho: "Vermelho · procure a UPA agora",
 };
 

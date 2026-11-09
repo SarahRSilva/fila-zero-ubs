@@ -38,6 +38,13 @@ def test_febre_muito_alta_nao_sai_verde():
     assert classificar("febre de 40 graus").cor == "amarelo"
 
 
+def test_febre_com_temperatura_dita_nao_repete_a_pergunta_dos_39():
+    t = classificar("febre de 40 graus")
+    assert "39" not in t.pergunta and "manchas" in t.pergunta
+    assert classificar("febre de 40 graus", "Sim, alguma delas").cor == "vermelho"
+    assert "39" in classificar("febre há 3 dias").pergunta
+
+
 def test_sim_sobre_beber_agua_e_sinal_de_alerta_e_nao_o_contrario():
     t = classificar("estou vomitando desde ontem")
     assert "sem conseguir" in t.pergunta
