@@ -1,0 +1,43 @@
+# Blueprint do Render: API (Docker), front (site estático) e PostgreSQL.
+# Passo a passo em docs/deploy.md. Os valores com "sync: false" são pedidos na criação.
+services:
+  - type: web
+    name: fila-zero-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./mvp/api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: false # o deploy é disparado pelo GitHub Actions, depois dos testes
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fila-zero-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PSEUDONIMO_SAL
+        generateValue: true
+      - key: JWT_EXPIRA_MIN
+        value: "60"
+      - key: SEED_SENHA # senha dos usuários de demonstração; vazio = sem usuários de demonstração
+        sync: false
+      - key: CORS_ORIGENS # endereço do front, por exemplo https://fila-zero-web.onrender.com
+        sync: false
+
+  - type: web
+    name: fila-zero-web
+    runtime: static
+    buildCommand: cd mvp/web && npm ci && npm run build
+    staticPublishPath: ./mvp/web/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL # endereço da API, por exemplo https://fila-zero-api.onrender.com
+        sync: false
+
+databases:
+  - name: fila-zero-db
+    plan: free
