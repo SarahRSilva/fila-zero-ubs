@@ -1,6 +1,6 @@
 # Formulário online da pesquisa (Google Forms)
 
-Versão online do [roteiro](roteiro.md), para quem não dá para entrevistar ao vivo. Leva uns 4 minutos. As perguntas seguem as colunas de [`respostas.csv`](respostas.csv): exporte as respostas do Forms para o Planilhas e copie para o CSV, com `entrevistador` = `formulario` e códigos E1, E2… (F1… para funcionário).
+Versão online do [roteiro](roteiro.md), para quem não dá para entrevistar ao vivo. **Link publicado: https://forms.gle/4ejiBVw3jsmzjWex6** (criado com [`criar_formulario.gs`](criar_formulario.gs)). Leva uns 4 minutos. As perguntas seguem as colunas de [`respostas.csv`](respostas.csv): exporte as respostas do Forms para o Planilhas e copie para o CSV, com `entrevistador` = `formulario` e códigos E1, E2… (F1… para funcionário).
 
 ## Como montar
 
