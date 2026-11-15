@@ -2,7 +2,7 @@
 
 O plano pede **5 ou mais usuários de UBS e 1 funcionário** (recepção, enfermagem ou agente comunitário), para o diferencial "validado com gente real", os trechos no PDF e uma frase no pitch. Cada conversa leva de 10 a 15 minutos.
 
-Anote as respostas em [`respostas.csv`](respostas.csv), uma linha por pessoa. Use só um código (E1, E2… e F1 para o funcionário), nunca o nome.
+Anote as respostas em [`respostas.csv`](respostas.csv), uma linha por pessoa. Para quem não dá para entrevistar ao vivo, use o [formulário online](formulario.md). Use só um código (E1, E2… e F1 para o funcionário), nunca o nome.
 
 ## Antes de começar (ler para a pessoa)
 

@@ -194,6 +194,8 @@ Link: a incluir.
 
 ## Equipe
 
+Grupo: **Turno Certo**
+
 | Nome | RM | Área |
 | --- | --- | --- |
 | Sarah Ribeiro da Silva | 97747 | |
