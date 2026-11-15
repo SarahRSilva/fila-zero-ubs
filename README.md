@@ -118,7 +118,7 @@ O arquivo `ia/modelo/previsao_demanda.pkl` só abre com as versões de scikit-le
 
 ## Pré-triagem medida
 
-`python ia/avaliar_triagem.py` compara a triagem com dois gabaritos de 30 relatos (10 por cor), em `ia/avaliacao/`. Os relatos e os rótulos foram escritos com ajuda de IA e **precisam da revisão de um profissional de saúde ou do grupo**. O resultado sai em `ia/modelo/metricas_triagem.json`.
+`python ia/avaliar_triagem.py` compara a triagem com dois gabaritos de 30 relatos (10 por cor), em `ia/avaliacao/`. Os relatos e os rótulos foram escritos com ajuda de IA e **revisados pelo grupo em 14/11**, sem mudança de rótulo. Não passaram por um profissional de saúde. O resultado sai em `ia/modelo/metricas_triagem.json`.
 
 | Medição das regras | Acurácia | Vermelho detectado | Vermelho como verde |
 | --- | --- | --- | --- |
@@ -183,7 +183,7 @@ fila-zero-ubs/
 
 | Ferramenta | Para quê |
 | --- | --- |
-| Claude (Anthropic) | Plano do projeto; estrutura do repositório; gerador do dataset sintético; pipeline do lake; treino e notebook do modelo de previsão; API; dashboard; protótipos e telas do front; sketch do ESP32, mock e coletor do sensor; testes; gabaritos da triagem e simulação de ganho (a revisar pelo grupo) |
+| Claude (Anthropic) | Plano do projeto; estrutura do repositório; gerador do dataset sintético; pipeline do lake; treino e notebook do modelo de previsão; API; dashboard; protótipos e telas do front; sketch do ESP32, mock e coletor do sensor; testes; gabaritos da triagem (revisados pelo grupo em 14/11) e simulação de ganho |
 | Claude API (`claude-opus-5-5`) | Agente de pré-triagem em execução, opcional, com `ANTHROPIC_API_KEY` |
 
 Atualizar esta tabela a cada uso novo.
