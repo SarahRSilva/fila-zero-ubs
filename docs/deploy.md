@@ -5,7 +5,7 @@ O `render.yaml` na raiz cria três recursos: a API (`fila-zero-api`, imagem Dock
 ## 1. Criar os serviços (uma vez)
 
 1. Entre em [dashboard.render.com](https://dashboard.render.com) com a conta do GitHub.
-2. **New → Blueprint** e escolha o repositório `fila-zero-ubs`. Como ele é privado, o Render pede acesso a ele no GitHub: libere só esse repositório.
+2. **New → Blueprint** e escolha o repositório `fila-zero-ubs`. Se o Render pedir acesso ao GitHub, libere só esse repositório.
 3. O Render lê o `render.yaml` e pede três valores:
 
 | Variável | Serviço | O que colocar |

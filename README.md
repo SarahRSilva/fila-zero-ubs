@@ -27,7 +27,7 @@ Com `docker compose --profile demo up --build` sobe também o `sensor`, um mock 
 
 Sem `.env`, o compose usa valores de desenvolvimento (senha de demonstração `filazero-demo`). Não use esses valores em ambiente público.
 
-Para publicar a API e o front no Render, com deploy automático pelo GitHub Actions, siga [docs/deploy.md](docs/deploy.md).
+O MVP roda localmente com o Docker Compose; não há versão publicada na internet. O job `deploy` do CI fica desligado até alguém configurar o Render: sem o secret `RENDER_DEPLOY_HOOK_URL`, ele só registra um aviso. Para publicar a API e o front no Render, com deploy automático pelo GitHub Actions, siga [docs/deploy.md](docs/deploy.md).
 
 ### Testar no celular
 
