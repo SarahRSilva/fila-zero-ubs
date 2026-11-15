@@ -197,3 +197,7 @@ Link: a incluir.
 | Nome | RM | Área |
 | --- | --- | --- |
 | Sarah Ribeiro da Silva | 97747 | |
+| Alairton Rocha Scabelli | 551454 | |
+| Eduardo Marins | 551892 | |
+| Mateus Iago Sousa Conceição | 550270 | |
+| Leonardo Nicastro Mansur Castillo | 551659 | |

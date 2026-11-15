@@ -4,10 +4,10 @@ Grupo: [PREENCHER NOME DO GRUPO]
 
 Integrantes (quem não estiver aqui não recebe nota):
 RM 97747 - Sarah Ribeiro da Silva
-RM [PREENCHER] - [PREENCHER NOME]
-RM [PREENCHER] - [PREENCHER NOME]
-RM [PREENCHER] - [PREENCHER NOME]
-RM [PREENCHER] - [PREENCHER NOME]
+RM 551454 - Alairton Rocha Scabelli
+RM 551892 - Eduardo Marins
+RM 550270 - Mateus Iago Sousa Conceição
+RM 551659 - Leonardo Nicastro Mansur Castillo
 
 Vídeo pitch: [PREENCHER LINK PÚBLICO, TESTADO EM ABA ANÔNIMA]
 Repositório: https://github.com/SarahRSilva/fila-zero-ubs
