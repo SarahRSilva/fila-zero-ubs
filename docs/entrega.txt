@@ -9,5 +9,5 @@ RM 551892 - Eduardo Marins
 RM 550270 - Mateus Iago Sousa Conceição
 RM 551659 - Leonardo Nicastro Mansur Castillo
 
-Vídeo pitch: [PREENCHER LINK PÚBLICO, TESTADO EM ABA ANÔNIMA]
+Vídeo pitch: https://youtu.be/yPdTLDpqZZw
 Repositório: https://github.com/SarahRSilva/fila-zero-ubs

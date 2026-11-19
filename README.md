@@ -190,7 +190,7 @@ Atualizar esta tabela a cada uso novo.
 
 ## Vídeo pitch
 
-Link: a incluir.
+Link: https://youtu.be/yPdTLDpqZZw
 
 ## Equipe
 
